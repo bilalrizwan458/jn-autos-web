@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Get to know JN Autos, your Karachi-based source for auto parts and accessories delivered across Pakistan.">
+  <title>About Us | JN Autos</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .about-hero {
+      min-height: 340px;
+      display: flex;
+      align-items: center;
+      background:
+        linear-gradient(90deg, rgba(13, 13, 15, .96), rgba(13, 13, 15, .68)),
+        url('./images/hero_bg.jpg') center 58% / cover;
+    }
+    .about-feature {
+      height: 100%;
+      padding: 28px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: var(--bg-elevated);
+    }
+    .about-feature-icon {
+      width: 52px;
+      height: 52px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background: rgba(228, 20, 27, .14);
+      color: var(--red);
+      font-size: 1.25rem;
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container d-flex align-items-center justify-content-between py-3">
+      <a href="index.html" class="logo d-flex align-items-center gap-2">
+        <img src="./images/JN.png" alt="JN Autos Logo" style="height:38px;width:auto;object-fit:contain;">
+        <span style="display:flex;flex-direction:column;line-height:1;">
+          <span class="brand-font fw-bold fs-4">JN <span class="text-red">AUTO</span></span>
+          <small style="font-size:.6rem;letter-spacing:.18em;color:var(-- );font-weight:500;">STORE</small>
+        </span>
+      </a>
+      <nav class="nav-links d-none d-lg-flex" aria-label="Main navigation">
+        <a href="index.html">Home</a>
+        <a href="shop.html">Shop</a>
+        <a href="index.html#categories">Categories</a>
+        <a href="about-us.html" class="active">About Us</a>
+        <a href="staff-auth.html">Staff Portal</a>
+      </nav>
+      <div class="d-flex align-items-center gap-2">
+        <a href="cart.html" class="icon-btn" aria-label="Shopping cart">
+          <i class="fa-solid fa-cart-shopping"></i>
+          <span class="cart-badge" id="cartCount">0</span>
+        </a>
+        <button class="icon-btn" id="themeToggle" aria-label="Toggle dark and light mode">
+          <i class="fa-solid fa-sun" id="themeIcon"></i>
+        </button>
+        <button class="icon-btn d-lg-none" id="mobileMenuBtn" aria-label="Menu" aria-expanded="false">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </div>
+    </div>
+    <nav class="nav-links d-lg-none flex-column px-3 pb-3" id="mobileMenu" style="display:none;" aria-label="Mobile navigation">
+      <a href="index.html" class="py-2">Home</a>
+      <a href="shop.html" class="py-2">Shop</a>
+      <a href="index.html#categories" class="py-2">Categories</a>
+      <a href="about-us.html" class="active py-2">About Us</a>
+      <a href="cart.html" class="py-2">Shopping Cart</a>
+      <a href="staff-auth.html" class="py-2">Staff Portal</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="about-hero">
+      <div class="container py-5">
+        <div class="col-lg-8">
+          <span class="text-red fw-bold small text-uppercase">JN Autos · Karachi, Pakistan</span>
+          <h1 class="display-3 fw-bold mt-2 mb-3">Parts for every <span class="text-red">journey.</span></h1>
+          <p class="lead text-light mb-4">We help drivers find auto parts and accessories for the vehicles they rely on, with convenient shopping and delivery across Pakistan.</p>
+          <a href="shop.html" class="btn-jn-red">Explore the shop <i class="fa-solid fa-arrow-right ms-2"></i></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-5">
+      <div class="container py-lg-4">
+        <div class="row g-4 align-items-center">
+          <div class="col-lg-7">
+            <span class="text-red fw-bold small text-uppercase">Who we are</span>
+            <h2 class="display-5 fw-bold mt-2 mb-3">Your auto parts store, made easier.</h2>
+            <p class="text-dark-emphasis">At JN Autos ., we have proudly served our customers since 1979, building a strong reputation for integrity and excellence in the automotive industry. We believe in complete transparency—what we promise is exactly what we deliver. With a focus on efficiency and reliability, our team ensures timely delivery and a seamless experience, making us a trusted name for generations of satisfied customers.
+
+Our goal is simple: to make it easier than ever for you to find and order the parts you need, anytime, anywhere. Whether you’re a car enthusiast or just need reliable parts for your vehicle, jnautos.store ensures fast delivery, authentic products, and the same care we’ve provided since day one.
+
+With over four decades of experience, we’re combining our legacy with modern convenience—so you get the best of both worlds.</p>
+            <p class="text-dark-emphasis mb-0">Whether you know the exact part you need or are comparing options, our goal is to make finding and ordering the right item more straightforward. We serve customers across Pakistan and are here to help with questions along the way.</p>
+          </div>
+          <div class="col-lg-5">
+            <div class="p-4 p-lg-5 rounded-3 border bg-elevated" style="border-color:var(--border) !important;">
+              <i class="fa-solid fa-quote-left text-red fs-2 mb-3" aria-hidden="true"></i>
+              <p class="fs-5 fw-semibold mb-3">“High-quality auto parts and accessories for every machine and every journey.”</p>
+              <span class="  small">The JN Autos promise</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-5 bg-elevated">
+      <div class="container py-lg-3">
+        <div class="text-center mb-4">
+          <span class="text-red fw-bold small text-uppercase">What matters to us</span>
+          <h2 class="display-5 fw-bold mt-2">Built around your needs</h2>
+        </div>
+        <div class="row g-3">
+          <div class="col-md-4">
+            <article class="about-feature">
+              <div class="about-feature-icon mb-3"><i class="fa-solid fa-car-side" aria-hidden="true"></i></div>
+              <h3 class="h4 fw-bold">Useful choice</h3>
+              <p class="  mb-0">Browse parts and accessories across vehicle makes, models, and product categories.</p>
+            </article>
+          </div>
+          <div class="col-md-4">
+            <article class="about-feature">
+              <div class="about-feature-icon mb-3"><i class="fa-solid fa-truck-fast" aria-hidden="true"></i></div>
+              <h3 class="h4 fw-bold">Nationwide delivery</h3>
+              <p class="  mb-0">Shop online from Karachi or anywhere else in Pakistan, with delivery to customers nationwide.</p>
+            </article>
+          </div>
+          <div class="col-md-4">
+            <article class="about-feature">
+              <div class="about-feature-icon mb-3"><i class="fa-solid fa-headset" aria-hidden="true"></i></div>
+              <h3 class="h4 fw-bold">Here to help</h3>
+              <p class="  mb-0">Contact our team if you have a question about finding the right part for your vehicle.</p>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-5">
+      <div class="container py-lg-3 text-center">
+        <span class="text-red fw-bold small text-uppercase">Need a part?</span>
+        <h2 class="display-5 fw-bold mt-2 mb-3">Let’s get you back on the road.</h2>
+        <p class="  mb-4">Explore our catalog or get in touch with the JN Autos team.</p>
+        <div class="d-flex justify-content-center flex-wrap gap-3">
+          <a href="shop.html" class="btn-jn-red"><i class="fa-solid fa-store me-2"></i>Browse the shop</a>
+          <a href="https://wa.me/923708521407" target="_blank" rel="noopener noreferrer" class="btn btn-jn-outline"><i class="fa-brands fa-whatsapp me-2"></i>Contact us</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer" id="contact">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-lg-4">
+          <a href="index.html" class="logo d-flex align-items-center gap-2 mb-3">
+            <img src="./images/JN.png" alt="JN Autos Logo" style="height:38px;width:auto;object-fit:contain;">
+            <span style="display:flex;flex-direction:column;line-height:1;">
+              <span class="brand-font text-light fw-bold fs-4">JN <span class="text-red">AUTO</span></span>
+              <small style="font-size:.6rem;letter-spacing:.18em;color:var(-- );font-weight:500;">STORE</small>
+            </span>
+          </a>
+          <p>Genuine auto parts and accessories for every make and model, delivered across Pakistan.</p>
+        </div>
+        <div class="col-lg-2 col-6">
+          <h6>Quick Links</h6>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="shop.html">Shop Catalog</a></li>
+            <li><a href="index.html#categories">Categories</a></li>
+            <li><a href="about-us.html">About Us</a></li>
+            <li><a href="staff-auth.html">Staff Portal</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-2 col-6">
+          <h6>Find Us</h6>
+          <ul>
+            <li><a href="https://www.facebook.com/jnautos.store/?_rdc=1&_rdr#" target="_blank" rel="noopener noreferrer">Facebook</a></li>
+            <li><a href="https://www.instagram.com/jnautos.store/" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+            <li><a href="https://www.tiktok.com/@jnautos2" target="_blank" rel="noopener noreferrer">TikTok</a></li>
+            <li><a href="https://www.youtube.com/@JNAUTOSSTORE" target="_blank" rel="noopener noreferrer">YouTube</a></li>
+            <li><a href="https://wa.me/923708521407" target="_blank" rel="noopener noreferrer">WhatsApp</a></li>
+
+          </ul>
+        </div>
+        <div class="col-lg-4">
+          <h6>Contact Us</h6>
+          <ul>
+            <li><i class="fa-solid fa-location-dot me-2 text-red"></i>Karachi, Pakistan</li>
+            <li><a href="https://wa.me/923708521407"><i class="fa-brands fa-whatsapp me-2 text-red"></i>+92 370 8521407</a></li>
+            <li><a href="tel:+923232564165"><i class="fa-solid fa-phone me-2 text-red"></i>+92 323 2564165</a></li>
+            <li><a href="mailto:info@jnautos.store"><i class="fa-solid fa-envelope me-2 text-red"></i>info@jnautos.store</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">&copy; 2026 JN Autos. All rights reserved.</div>
+    </div>
+  </footer>
+  <script src="app.js"></script>
+  <script type="module" src="cart.js"></script>
+</body>
+</html>

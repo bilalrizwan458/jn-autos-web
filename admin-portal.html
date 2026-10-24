@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin & Staff Upload Portal | JN Autos</title>
+
+<!-- Bootstrap 5 -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<!-- Custom Styles -->
+<link rel="stylesheet" href="style.css">
+
+<style>
+  .dropzone {
+    border: 2px dashed var(--border);
+    border-radius: 12px;
+    padding: 32px 20px;
+    text-align: center;
+    background: var(--bg-elevated-2);
+    cursor: pointer;
+    transition: border-color .2s ease;
+  }
+  .dropzone:hover {
+    border-color: var(--red);
+  }
+  .table-img {
+    width: 44px;
+    height: 44px;
+    object-fit: contain;
+    padding: 2px;
+    border-radius: 6px;
+    background: var(--bg-elevated-2);
+  }
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="site-header">
+  <div class="container d-flex align-items-center justify-content-between py-3">
+    <a href="index.html" class="logo d-flex align-items-center gap-2">
+      <img src="./images/JN.png" alt="JN Autos Logo" style="height: 38px; width: auto; object-fit: contain;">
+      <span style="display:flex;flex-direction:column;line-height:1;">
+        <span class="brand-font fw-bold fs-4">JN <span class="text-red">STAFF</span></span>
+        <small style="font-size: .6rem; letter-spacing: .18em; color: var(-- ); font-weight: 500;">PRODUCT PORTAL</small>
+      </span>
+    </a>
+
+    <div class="d-flex align-items-center gap-3">
+      <a href="shop.html" class="btn btn-jn-outline py-2 px-3 fs-6"><i class="fa-solid fa-store me-1"></i>View Live Shop</a>
+      <!-- LIGHT / DARK MODE TOGGLE -->
+      <button class="icon-btn" id="themeToggle" aria-label="Toggle dark and light mode">
+        <i class="fa-solid fa-sun" id="themeIcon"></i>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div id="sessionGuard" class="container py-5">
+  <div class="alert alert-info text-center" role="status">
+    Checking staff access. If you are not signed in, you will be redirected to the staff sign-in page.
+  </div>
+  <div id="authAlert" class="alert alert-danger d-none" role="alert"></div>
+  <a href="staff-auth.html" class="btn btn-jn-red">Go to Staff Sign In</a>
+</div>
+
+<!-- The staff dashboard is only shown after an authenticated session is verified. -->
+<div id="dashboardContainer" class="container py-4 d-none">
+
+  <!-- Welcome Bar -->
+  <div class="p-4 rounded-3 border bg-elevated mb-4 d-flex align-items-center justify-content-between flex-wrap gap-3" style="border-color:var(--border) !important;">
+    <div>
+      <h3 class="fw-bold brand-font mb-1" id="welcomeUserHeading">Welcome, Staff Member</h3>
+      <p class="  mb-0 small">Product Upload & Catalog Management Portal</p>
+    </div>
+    <div class="d-flex align-items-center gap-2">
+      <span class="badge bg-secondary px-3 py-2 fs-6" id="authModeBadge"><i class="fa-solid fa-cloud me-1"></i>Checking Firebase...</span>
+      <button class="btn btn-outline-danger py-2 px-3 fs-6" id="logoutBtn"><i class="fa-solid fa-arrow-right-from-bracket me-1"></i>Logout</button>
+    </div>
+  </div>
+  <div id="publicTestNotice" class="alert alert-warning small" role="status">
+    Public test mode: staff sign-in is temporarily bypassed. Changes are saved only in this browser.
+  </div>
+  <div id="dashboardAlert" class="alert d-none py-2 px-3 small mb-4" role="status"></div>
+
+  <details class="p-4 rounded-3 border bg-elevated mb-4" style="border-color:var(--border) !important;">
+    <summary class="fw-bold brand-font"><i class="fa-solid fa-shield-halved text-red me-2"></i>Account Security</summary>
+    <p class="  small mt-3 mb-3">Change your Firebase password or remove your email from product creator labels saved in this browser.</p>
+    <div id="passwordChangeAlert" class="alert d-none py-2 px-3 small" role="status"></div>
+    <form id="passwordChangeForm" class="row g-3 align-items-end">
+      <div class="col-md-4">
+        <label class="form-label   small fw-semibold" for="currentStaffPassword">Current Password</label>
+        <input type="password" id="currentStaffPassword" class="form-control" autocomplete="current-password" required style="background-color:var(--bg-elevated-2);color:var(--text);border:1px solid var(--border);">
+      </div>
+      <div class="col-md-4">
+        <label class="form-label   small fw-semibold" for="newStaffPassword">New Password</label>
+        <input type="password" id="newStaffPassword" class="form-control" autocomplete="new-password" minlength="8" required style="background-color:var(--bg-elevated-2);color:var(--text);border:1px solid var(--border);">
+      </div>
+      <div class="col-md-4">
+        <label class="form-label   small fw-semibold" for="confirmStaffPassword">Confirm New Password</label>
+        <input type="password" id="confirmStaffPassword" class="form-control" autocomplete="new-password" minlength="8" required style="background-color:var(--bg-elevated-2);color:var(--text);border:1px solid var(--border);">
+      </div>
+      <div class="col-12 d-flex flex-wrap justify-content-between gap-2">
+        <button type="submit" class="btn-jn-red px-4 py-2"><i class="fa-solid fa-key me-2"></i>Change Password</button>
+        <button type="button" class="btn btn-outline-danger px-3 py-2" id="clearStaffDataBtn"><i class="fa-solid fa-user-slash me-2"></i>Clear My Creator Labels</button>
+      </div>
+    </form>
+  </details>
+
+  <!-- Stats Grid -->
+  <div class="row g-3 mb-4">
+    <div class="col-md-4">
+      <div class="p-3 rounded-3 border bg-elevated d-flex align-items-center gap-3" style="border-color:var(--border) !important;">
+        <div class="icon-circle" style="width:48px;height:48px;border-radius:50%;background:rgba(228,20,27,.12);color:var(--red);display:flex;align-items:center;justify-content:center;font-size:1.4rem;">
+          <i class="fa-solid fa-boxes-stacked"></i>
+        </div>
+        <div>
+          <span class="  small">Total Products</span>
+          <h4 class="fw-bold mb-0 brand-font" id="statTotalProducts">0</h4>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="p-3 rounded-3 border bg-elevated d-flex align-items-center gap-3" style="border-color:var(--border) !important;">
+        <div class="icon-circle" style="width:48px;height:48px;border-radius:50%;background:rgba(228,20,27,.12);color:var(--red);display:flex;align-items:center;justify-content:center;font-size:1.4rem;">
+          <i class="fa-solid fa-layer-group"></i>
+        </div>
+        <div>
+          <span class="  small">Active Categories</span>
+          <h4 class="fw-bold mb-0 brand-font" id="statTotalCategories">8</h4>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="p-3 rounded-3 border bg-elevated d-flex align-items-center gap-3" style="border-color:var(--border) !important;">
+        <div class="icon-circle" style="width:48px;height:48px;border-radius:50%;background:rgba(228,20,27,.12);color:var(--red);display:flex;align-items:center;justify-content:center;font-size:1.4rem;">
+          <i class="fa-solid fa-warehouse"></i>
+        </div>
+        <div>
+          <span class="  small">Total Stock Units</span>
+          <h4 class="fw-bold mb-0 brand-font" id="statTotalStock">0</h4>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row g-4">
+
+    <!-- UPLOAD SECTION (SINGLE PRODUCT & BULK CSV) -->
+    <div class="col-lg-5">
+
+      <!-- Single Product Form -->
+      <div class="p-4 rounded-3 border bg-elevated mb-4" style="border-color:var(--border) !important;">
+        <h5 class="fw-bold brand-font mb-3"><i class="fa-solid fa-plus text-red me-2"></i>Add Single Product</h5>
+
+        <form id="addProductForm">
+          <div class="mb-3">
+            <label class="form-label   small fw-semibold">Product Name *</label>
+            <input type="text" id="pName" class="form-control" placeholder="e.g. Front Brake Disc Rotor" required style="background-color: var(--bg-elevated-2); color: var(--text); border: 1px solid var(--border);">
+          </div>
+
+          <div class="row g-2 mb-3">
+            <div class="col-md-6">
+              <label class="form-label   small fw-semibold">Category *</label>
+              <select id="pCategory" class="form-select" required style="background-color: var(--bg-elevated-2); color: var(--text); border: 1px solid var(--border);">
+                <option value="Engine Parts">Engine Parts</option>
+                <option value="Brake System">Brake System</option>
+                <option value="Bearings">Bearings</option>
+                <option value="Lubricants">Lubricants</option>
+                <option value="Accessories">Accessories</option>
+                <option value="Suspension">Suspension</option>
+                <option value="Electricals">Electricals</option>
+                <option value="Body Parts">Body Parts</option>
+              </select>
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label   small fw-semibold">Price (Rs.) *</label>
+              <input type="number" id="pPrice" class="form-control" placeholder="e.g. 6500" required style="background-color: var(--bg-elevated-2); color: var(--text); border: 1px solid var(--border);">
+            </div>
+          </div>
+
+          <div class="row g-2 mb-3">
+            <div class="col-md-6">
+              <label class="form-label   small fw-semibold">Car Make</label>
+              <select id="pMake" class="form-select" style="background-color: var(--bg-elevated-2); color: var(--text); border: 1px solid var(--border);">
+                <option value="Toyota">Toyota</option>
+                <option value="Honda">Honda</option>
+                <option value="Suzuki">Suzuki</option>
+                <option value="Nissan">Nissan</option>
+                <option value="Hyundai">Hyundai</option>
+                <option value="Kia">Kia</option>
+                <option value="Universal">Universal (All Cars)</option>
+              </select>
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label   small fw-semibold">Car Model</label>
+              <input type="text" id="pModel" class="form-control" list="carModelSuggestions" placeholder="Choose or enter a model" style="background-color: var(--bg-elevated-2); color: var(--text); border: 1px solid var(--border);">
+              <datalist id="carModelSuggestions"></datalist>
+            </div>
+          </div>
+
+          <div class="row g-2 mb-3">
+            <div class="col-md-6">
+              <label class="form-label   small fw-semibold">Model Year Range</label>
+              <input type="text" id="pYear" class="form-control" placeholder="e.g. 2015-2022" style="background-color: var(--bg-elevated-2); color: var(--text); border: 1px solid var(--border);">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label   small fw-semibold">Part OEM # (Optional)</label>
+              <input type="text" id="pPartNumber" class="form-control" placeholder="e.g. 43512-02250" style="background-color: var(--bg-elevated-2); color: var(--text); border: 1px solid var(--border);">
+            </div>
+          </div>
+
+          <div class="row g-2 mb-3">
+            <div class="col-md-6">
+              <label class="form-label   small fw-semibold">Fitment Type</label>
+              <select id="pFitment" class="form-select" style="background-color: var(--bg-elevated-2); color: var(--text); border: 1px solid var(--border);">
+                <option value="specific">Car Specific Fitment</option>
+                <option value="universal">Universal Fitment (Fits All)</option>
+              </select>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label   small fw-semibold">Stock Quantity</label>
+              <input type="number" id="pStock" class="form-control" value="10" required style="background-color: var(--bg-elevated-2); color: var(--text); border: 1px solid var(--border);">
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label   small fw-semibold">Product Description</label>
+            <textarea id="pDescription" class="form-control" rows="3" placeholder="Describe condition, compatibility, material, or other useful details..." style="background-color: var(--bg-elevated-2); color: var(--text); border: 1px solid var(--border);"></textarea>
+          </div>
+
+          <!-- MULTI-PHOTO UPLOADER (UP TO 12 PHOTOS) -->
+          <div class="mb-3">
+            <div class="d-flex justify-content-between align-items-center mb-1">
+              <label class="form-label   small fw-semibold mb-0">Product Photos (Up to 12 Photos)</label>
+              <span class="badge bg-secondary small" id="photoCountBadge">0 / 12 Selected</span>
+            </div>
+            
+            <!-- Choose Image Files -->
+            <input type="file" id="pImageFiles" multiple accept="image/*" class="form-control mb-2" style="background-color: var(--bg-elevated-2); color: var(--text); border: 1px solid var(--border);">
+            
+            <!-- Or Paste Multiple Image URLs -->
+            <textarea id="pImageUrlTextarea" class="form-control mb-2" rows="2" placeholder="Or paste image URLs (separated by new line or commas)..." style="background-color: var(--bg-elevated-2); color: var(--text); border: 1px solid var(--border); font-size:.85rem;"></textarea>
+            
+            <!-- Live Thumbnails Gallery Container -->
+            <div class="d-flex flex-wrap gap-2 p-2 rounded border" id="photoPreviewContainer" style="background:var(--bg-elevated-2);border-color:var(--border) !important;min-height:70px;">
+              <small class="  m-auto" id="noPhotosNotice">No photos added yet. Select files or paste URLs above.</small>
+            </div>
+          </div>
+
+          <button type="submit" class="btn-jn-red w-100 py-2"><i class="fa-solid fa-cloud-arrow-up me-2"></i>Save &amp; Publish Product</button>
+        </form>
+      </div>
+
+      <div class="p-4 rounded-3 border bg-elevated mb-4" style="border-color:var(--border) !important;">
+        <h5 class="fw-bold brand-font mb-3"><i class="fa-solid fa-list-ul text-red me-2"></i>Catalog Choices</h5>
+        <div class="row g-3">
+          <div class="col-md-4">
+            <label class="form-label small fw-semibold" for="newCategoryInput">Add Part Category</label>
+            <div class="input-group mb-2">
+              <input type="text" id="newCategoryInput" class="form-control" placeholder="e.g. Clutch System" style="background-color: var(--bg-elevated-2); color: var(--text); border: 1px solid var(--border);">
+              <button type="button" class="btn btn-jn-outline" id="addCategoryBtn" aria-label="Add category"><i class="fa-solid fa-plus"></i></button>
+            </div>
+            <div id="customCategoryList" class="d-flex flex-wrap gap-2"></div>
+          </div>
+          <div class="col-md-4">
+            <label class="form-label small fw-semibold" for="newMakeInput">Add Car Make</label>
+            <div class="input-group mb-2">
+              <input type="text" id="newMakeInput" class="form-control" placeholder="e.g. Changan" style="background-color: var(--bg-elevated-2); color: var(--text); border: 1px solid var(--border);">
+              <button type="button" class="btn btn-jn-outline" id="addMakeBtn" aria-label="Add car make"><i class="fa-solid fa-plus"></i></button>
+            </div>
+            <div id="customMakeList" class="d-flex flex-wrap gap-2"></div>
+          </div>
+          <div class="col-md-4">
+            <label class="form-label small fw-semibold" for="newModelInput">Add Car Model</label>
+            <div class="input-group mb-2">
+              <input type="text" id="newModelInput" class="form-control" placeholder="e.g. Fortuner" style="background-color: var(--bg-elevated-2); color: var(--text); border: 1px solid var(--border);">
+              <button type="button" class="btn btn-jn-outline" id="addModelBtn" aria-label="Add car model"><i class="fa-solid fa-plus"></i></button>
+            </div>
+            <div id="customModelList" class="d-flex flex-wrap gap-2"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bulk CSV Upload Box -->
+      <div class="p-4 rounded-3 border bg-elevated" style="border-color:var(--border) !important;">
+        <h5 class="fw-bold brand-font mb-2"><i class="fa-solid fa-file-csv text-red me-2"></i>Bulk CSV Product Import</h5>
+        <p class="  small mb-3">Upload large inventories (up to 1M+ parts) using a structured CSV file.</p>
+
+        <div class="dropzone mb-3" id="csvDropzone" onclick="document.getElementById('csvFileInput').click()">
+          <i class="fa-solid fa-cloud-arrow-up text-red fs-2 mb-2"></i>
+          <h6 class="fw-bold mb-1">Click or Drag CSV File Here</h6>
+          <span class="  small">Supports .csv format with high volume batching</span>
+          <input type="file" id="csvFileInput" accept=".csv" class="d-none">
+        </div>
+
+        <button type="button" class="btn btn-jn-outline w-100 py-2 fs-6" id="downloadCsvTemplateBtn">
+          <i class="fa-solid fa-download me-2"></i>Download Sample CSV Template
+        </button>
+      </div>
+
+    </div>
+
+    <!-- INVENTORY TABLE SECTION -->
+    <div class="col-lg-7">
+      <div class="p-4 rounded-3 border bg-elevated" style="border-color:var(--border) !important;">
+        <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+          <h5 class="fw-bold brand-font mb-0"><i class="fa-solid fa-list-check text-red me-2"></i>Manage Product Inventory</h5>
+          <div class="d-flex gap-2 flex-wrap">
+            <input type="text" id="tableSearchInput" class="form-control form-control-sm" placeholder="Search catalog..." style="width:180px;background-color: var(--bg-elevated-2); color: var(--text); border: 1px solid var(--border);">
+            <select id="tableCategoryFilter" class="form-select form-select-sm" aria-label="Filter by category" style="width:150px;background-color: var(--bg-elevated-2); color: var(--text); border: 1px solid var(--border);"><option value="">All categories</option></select>
+            <select id="tableMakeFilter" class="form-select form-select-sm" aria-label="Filter by car make" style="width:140px;background-color: var(--bg-elevated-2); color: var(--text); border: 1px solid var(--border);"><option value="">All makes</option></select>
+            <select id="tableModelFilter" class="form-select form-select-sm" aria-label="Filter by car model" style="width:140px;background-color: var(--bg-elevated-2); color: var(--text); border: 1px solid var(--border);"><option value="">All models</option></select>
+          </div>
+        </div>
+
+        <div class="table-responsive">
+          <table class="table table-dark table-hover align-middle mb-0" style="--bs-table-bg: transparent; border-color: var(--border);">
+            <thead>
+              <tr class="  small border-bottom" style="border-color: var(--border) !important;">
+                <th>Item</th>
+                <th>Category</th>
+                <th>Make / Model</th>
+                <th>Price (Rs.)</th>
+                <th>Stock</th>
+                <th class="text-end">Action</th>
+              </tr>
+            </thead>
+            <tbody id="inventoryTableBody">
+              <!-- Dynamically populated -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script type="module" src="admin-portal.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

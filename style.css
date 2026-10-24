@@ -1,0 +1,440 @@
+body{
+  background-color: #000000;
+}
+/* ============================================
+   1) THEME VARIABLES
+   Every colour on the page is written as var(--something)
+   instead of a hard hex code. That is the whole trick behind
+   the light/dark toggle: we only ever change WHAT these
+   variables point to, never the CSS rules themselves.
+   ============================================ */
+:root,
+:root[data-theme="dark"] {
+  --bg: #0d0d0f;
+  --bg-elevated: #17171b;
+  --bg-elevated-2: #1f1f24;
+  --text: #f4f4f5;
+  -- : #9ca3af;
+  --border: #2a2a2e;
+  --red: #e4141b;
+  --red-dark: #b81016;
+  --shadow: 0 10px 30px rgba(0,0,0,0.45);
+}
+:root[data-theme="light"] {
+  --bg: #ffffff;
+  --bg-elevated: #f6f6f8;
+  --bg-elevated-2: #eeeef1;
+  --text: #16161a;
+  -- : #6b7280;
+  --border: #e5e7eb;
+  --red: #e4141b;
+  --red-dark: #b81016;
+  --shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', sans-serif;
+  transition: background-color .25s ease, color .25s ease;
+}
+
+h1, h2, h3, h4, .brand-font {
+  font-family: 'Oswald', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+.text-red { color: var(--red) !important; }
+.bg-elevated { background-color: var(--bg-elevated); }
+.logo-pic {
+  height: 40px;
+  width: auto;
+  object-fit: contain;
+}
+.btn-jn-red {
+  background-color: var(--red);
+  border: 1px solid var(--red);
+  color: #fff;
+  font-family: 'Oswald', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  font-weight: 600;
+  padding: 12px 28px;
+  border-radius: 6px;
+  transition: background-color .2s ease, transform .15s ease;
+}
+.btn-jn-red:hover { background-color: var(--red-dark); border-color: var(--red-dark); color: #fff; transform: translateY(-1px); }
+
+.btn-jn-outline {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-family: 'Oswald', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  font-weight: 600;
+  padding: 12px 28px;
+  border-radius: 6px;
+  transition: border-color .2s ease, color .2s ease;
+}
+.btn-jn-outline:hover { border-color: var(--red); color: var(--red); }
+
+/* ============================================
+   2) NAVBAR
+   ============================================ */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background-color: var(--bg-elevated);
+  border-bottom: 1px solid var(--border);
+}
+.site-header .logo {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  font-size: 1.6rem;
+  line-height: 1;
+  color: var(--text);
+}
+.site-header .span { color: var(--red); }
+.site-header .logo small {
+  display: block;
+  font-size: .6rem;
+  letter-spacing: .18em;
+  color: var(-- );
+  font-weight: 500;
+}
+.nav-links a {
+  color: var(-- );
+  font-family: 'Oswald', sans-serif;
+  font-weight: 500;
+  letter-spacing: .03em;
+  text-transform: uppercase;
+  font-size: .9rem;
+  padding: 8px 4px;
+  margin: 0 10px;
+  border-bottom: 2px solid transparent;
+}
+.nav-links a:hover,
+.nav-links a.active {
+  color: var(--text);
+  border-bottom-color: var(--red);
+}
+.icon-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text);
+  background: var(--bg-elevated-2);
+  border: 1px solid var(--border);
+  position: relative;
+}
+.icon-btn:hover { color: var(--red); border-color: var(--red); }
+.cart-badge {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  background: var(--red);
+  color: #fff;
+  font-size: .65rem;
+  font-weight: 700;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+/* the theme toggle gets its own look so it stands out slightly */
+#themeToggle i { transition: transform .3s ease; }
+#themeToggle:hover i { transform: rotate(20deg); }
+
+/* ============================================
+   3) HERO SLIDER
+   A full-bleed photo hero with 3 rotating slides.
+   The text always sits on the LEFT, over a dark gradient,
+   so it stays readable no matter what photo is behind it.
+   ============================================ */
+.hero-slider {
+  position: relative;
+  min-height: 640px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  color: #ffffff; /* text on the photo is always light, in both themes */
+}
+.hero-slider .slide-bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center right;
+  transition: background-image .5s ease-in-out;
+}
+/* dark gradient so headline text stays readable over any photo */
+.hero-slider::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(0,0,0,.92) 0%, rgba(0,0,0,.78) 32%, rgba(0,0,0,.35) 62%, rgba(0,0,0,.05) 100%);
+  z-index: 1;
+}
+/* soft red neon glow, like a light shining off the showroom floor */
+.hero-slider .glow-ring {
+  position: absolute;
+  bottom: 30px;
+  right: 10%;
+  width: 460px;
+  height: 90px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, rgba(228,20,27,.55), transparent 70%);
+  filter: blur(4px);
+  z-index: 1;
+}
+.hero-slider .streak {
+  position: absolute;
+  top: 8%;
+  bottom: 8%;
+  width: 2px;
+  background: linear-gradient(rgba(228,20,27,0), rgba(228,20,27,.85), rgba(228,20,27,0));
+  z-index: 1;
+}
+.hero-slider .streak.s1 { right: 14%; }
+.hero-slider .streak.s2 { right: 6%; opacity: .6; }
+
+.hero-content { position: relative; z-index: 2; max-width: 640px; padding: 0 12px; }
+.hero-content h1 { font-size: 3.4rem; font-weight: 700; line-height: 1.1; color: #fff; margin-bottom: 18px; }
+.hero-content p.lead-text { color: rgba(255,255,255,.75); text-transform: none; font-family: 'Inter'; max-width: 460px; font-size: 1.02rem; }
+
+/* the "01 —— 03" slide indicator, bottom-left of the hero text */
+.hero-slider-nav { display: flex; align-items: center; gap: 14px; margin-top: 54px; }
+.hero-slider-nav .count { font-family: 'Oswald', sans-serif; font-weight: 600; }
+.hero-slider-nav .count.current { color: var(--red); font-size: 1.05rem; }
+.hero-slider-nav .count.total { color: rgba(255,255,255,.55); font-size: 1.05rem; }
+.hero-slider-nav .track { width: 90px; height: 2px; background: rgba(255,255,255,.25); position: relative; }
+.hero-slider-nav .track .fill { position: absolute; left: 0; top: 0; height: 100%; background: var(--red); width: 33%; transition: width .4s ease; }
+
+@media (max-width: 991px) {
+  .hero-slider { min-height: 560px; }
+  .hero-content h1 { font-size: 2.2rem; }
+  .hero-slider .glow-ring { display: none; }
+}
+
+/* ============================================
+   3b) "FIND THE RIGHT PART" FINDER
+   This card floats up over the bottom edge of the hero
+   (negative margin-top) so it visually connects the two.
+   ============================================ */
+.part-finder { padding: 0 0 70px; }
+.part-finder-card {
+  position: relative;
+  z-index: 3;
+  margin-top: -60px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 34px;
+  box-shadow: var(--shadow);
+}
+.part-finder-card h2 { text-align: center; font-size: 1.5rem; margin-bottom: 24px; }
+.part-finder-card select {
+  width: 100%;
+  background-color: var(--bg-elevated-2);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 11px 12px;
+  font-size: .9rem;
+}
+.part-finder-card select:focus { outline: none; border-color: var(--red); box-shadow: none; }
+@media (max-width: 767px) { .part-finder-card { margin-top: 20px; padding: 24px; } }
+
+/* ============================================
+   4) SUPPORTED BRANDS STRIP
+   ============================================ */
+.brands-strip { padding: 22px 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+.brands-strip .label {
+  font-size: .72rem; letter-spacing: .25em; color: var(-- ); text-align: center; margin-bottom: 16px;
+}
+.brand-chip {
+  color: var(-- );
+  font-family: 'Oswald', sans-serif;
+  font-weight: 600;
+  font-size: 1rem;
+  opacity: .8;
+}
+
+/* ============================================
+   5) SECTION HEADINGS (reused everywhere)
+   ============================================ */
+.section-pad { padding: 70px 0; }
+.section-heading { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 32px; flex-wrap: wrap; gap: 10px; }
+.section-heading h2 { font-size: 1.9rem; margin: 0; }
+.view-all { color: var(--red); font-family: 'Oswald', sans-serif; font-size: .85rem; letter-spacing: .05em; font-weight: 600; }
+.view-all i { margin-left: 4px; }
+
+/* ============================================
+   6) CATEGORY CARDS
+   ============================================ */
+.category-card {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 26px 12px;
+  text-align: center;
+  transition: border-color .2s ease, transform .2s ease;
+  height: 100%;
+}
+.category-card:hover { border-color: var(--red); transform: translateY(-4px); }
+.category-card .icon-circle {
+  width: 60px; height: 60px; border-radius: 50%;
+  background: rgba(228,20,27,.12);
+  color: var(--red);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.4rem;
+  margin: 0 auto 14px;
+}
+.category-card span { font-family: 'Oswald', sans-serif; font-size: .85rem; letter-spacing: .02em; }
+
+/* ============================================
+   7) PRODUCT CARDS
+   ============================================ */
+.product-card {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  transition: border-color .2s ease, transform .2s ease;
+}
+.product-card:hover { border-color: var(--red); transform: translateY(-4px); }
+.product-card img { 
+  width: 100%; 
+  height: 240px; 
+  object-fit: contain; 
+  background: var(--bg-elevated-2); 
+  padding: 8px;
+}
+.product-card .body { padding: 16px; display: flex; flex-direction: column; flex: 1; }
+.product-card .name { font-size: .92rem; font-weight: 600; text-transform: none; font-family: 'Inter'; margin-bottom: 6px; min-height: 40px; }
+.product-card .price { color: var(--red); font-family: 'Oswald'; font-weight: 700; font-size: 1.15rem; margin-bottom: 12px; }
+.product-card .btn-jn-red { margin-top: auto; padding: 10px; font-size: .78rem; }
+
+/* ============================================
+   8) TRUST BAR
+   ============================================ */
+.trust-bar { background: var(--bg-elevated); border-top: 1px solid var(--border); padding: 40px 0; }
+.trust-item { display: flex; gap: 14px; align-items: flex-start; }
+.trust-item i { color: var(--red); font-size: 1.5rem; margin-top: 2px; }
+.trust-item strong { display: block; font-size: .95rem; margin-bottom: 2px; }
+.trust-item span { color: var(-- ); font-size: .82rem; }
+
+/* ============================================
+   9) FOOTER
+   ============================================ */
+footer.site-footer { background: var(--bg-elevated); border-top: 1px solid var(--border); padding: 60px 0 0; }
+footer.site-footer .logo { color: var(--text); }
+footer h6 { font-family: 'Oswald'; font-size: .85rem; letter-spacing: .08em; margin-bottom: 18px; }
+footer ul { list-style: none; padding: 0; margin: 0; }
+footer ul li { margin-bottom: 10px; }
+footer ul li a { color: var(-- ); font-size: .88rem; }
+footer ul li a:hover { color: var(--red); }
+footer p { color: var(-- ); font-size: .88rem; }
+.social-icon {
+  width: 36px; height: 36px; border-radius: 50%;
+  border: 1px solid var(--border);
+  display: inline-flex; align-items: center; justify-content: center;
+  color: var(-- ); margin-right: 8px;
+}
+.social-icon:hover { color: var(--red); border-color: var(--red); }
+.footer-bottom { border-top: 1px solid var(--border); margin-top: 40px; padding: 20px 0; text-align: center; color: var(-- ); font-size: .82rem; }
+
+.cart-badge {
+  min-width: 18px;
+  height: 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 5px;
+  border-radius: 999px;
+  background: var(--red);
+  color: #fff;
+  font-size: .68rem;
+  font-weight: 700;
+}
+.cart-toast {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 1100;
+  max-width: min(360px, calc(100vw - 40px));
+  padding: 12px 18px;
+  border: 1px solid var(--border);
+  border-left: 4px solid #198754;
+  border-radius: 8px;
+  background: var(--bg-elevated);
+  color: var(--text);
+  box-shadow: var(--shadow);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(12px);
+  transition: opacity .2s ease, transform .2s ease;
+}
+.cart-toast-visible { opacity: 1; transform: translateY(0); }
+.cart-toast-error { border-left-color: var(--red); }
+.cart-empty,
+.cart-summary,
+.cart-item {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--bg-elevated);
+}
+.cart-empty { padding: 48px 20px; }
+.cart-summary { position: sticky; top: 100px; padding: 24px; }
+.cart-item {
+  display: grid;
+  grid-template-columns: 86px minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+}
+.cart-item-image {
+  width: 86px;
+  height: 86px;
+  border-radius: 8px;
+  background: var(--bg-elevated-2);
+  object-fit: contain;
+}
+.cart-item-details { min-width: 0; }
+.cart-item-details h2 { overflow-wrap: anywhere; }
+.cart-item-controls { display: flex; align-items: center; gap: 10px; }
+.cart-quantity { min-width: 20px; text-align: center; font-weight: 700; }
+.cart-line-total { white-space: nowrap; }
+.cart-remove {
+  grid-column: 2 / -1;
+  justify-self: end;
+  font-size: .85rem;
+}
+@media (max-width: 575.98px) {
+  .cart-item {
+    grid-template-columns: 64px minmax(0, 1fr) auto;
+    gap: 12px;
+    padding: 12px;
+  }
+  .cart-item-image { width: 64px; height: 64px; }
+  .cart-item-controls { grid-column: 2; grid-row: 2; justify-self: start; }
+  .cart-line-total { grid-column: 3; grid-row: 2; font-size: .9rem; }
+  .cart-remove { grid-column: 2 / -1; }
+  .cart-summary { position: static; }
+}

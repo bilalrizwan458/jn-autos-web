@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shop Auto Parts | JN Autos</title>
+
+<!-- Bootstrap 5 -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<!-- CSS CUSTOM FILE -->
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ============================================
+     NAVBAR
+     ============================================ -->
+<header class="site-header">
+  <div class="container d-flex align-items-center justify-content-between py-3">
+
+    <a href="index.html" class="logo d-flex align-items-center gap-2">
+      <img src="./images/JN.png" alt="JN Autos Logo" style="height: 38px; width: auto; object-fit: contain;">
+      <span style="display:flex;flex-direction:column;line-height:1;">
+        <span class="brand-font fw-bold fs-4">JN <span class="text-red">AUTO</span></span>
+        <small style="font-size: .6rem; letter-spacing: .18em; color: var(-- ); font-weight: 500;">STORE</small>
+      </span>
+    </a>
+
+    <nav class="nav-links d-none d-lg-flex">
+      <a href="index.html">Home</a>
+      <a href="shop.html" class="active">Shop</a>
+      <a href="index.html#categories">Categories</a>
+      <a href="about-us.html">About Us</a>
+      <a href="admin-portal.html">Staff Portal</a>
+      <a href="about-us.html#contact">Contact</a>
+    </nav>
+
+    <div class="d-flex align-items-center gap-2">
+      <button class="icon-btn" aria-label="Search"><i class="fa-solid fa-magnifying-glass"></i></button>
+
+      <a href="cart.html" class="icon-btn" aria-label="Shopping cart">
+        <i class="fa-solid fa-cart-shopping"></i>
+        <span class="cart-badge" id="cartCount">0</span>
+      </a>
+
+      <!-- LIGHT / DARK MODE TOGGLE -->
+      <button class="icon-btn" id="themeToggle" aria-label="Toggle dark and light mode">
+        <i class="fa-solid fa-sun" id="themeIcon"></i>
+      </button>
+
+      <button class="icon-btn d-lg-none" id="mobileMenuBtn" aria-label="Menu"><i class="fa-solid fa-bars"></i></button>
+    </div>
+  </div>
+
+  <!-- Mobile nav -->
+  <nav class="nav-links d-lg-none d-flex flex-column px-3 pb-3" id="mobileMenu" style="display:none;">
+    <a href="index.html" class="py-2">Home</a>
+    <a href="shop.html" class="active py-2">Shop</a>
+    <a href="index.html#categories" class="py-2">Categories</a>
+    <a href="about-us.html" class="py-2">About Us</a>
+    <a href="admin-portal.html" class="py-2">Staff Portal</a>
+    <a href="about-us.html#contact" class="py-2">Contact</a>
+  </nav>
+</header>
+
+<!-- ============================================
+     SHOP BANNER
+     ============================================ -->
+<section class="py-5 bg-elevated border-bottom" style="border-color: var(--border) !important;">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-md-8">
+        <h1 class="display-5 fw-bold mb-2">Auto Parts <span class="text-red">Catalog</span></h1>
+        <p class="mb-0" >Browse through our extensive inventory of genuine spare parts, lubricants, bearings, and performance accessories.</p>
+      </div>
+      <div class="col-md-4 text-md-end mt-3 mt-md-0">
+        <span class="badge bg-danger fs-6 px-3 py-2"><i class="fa-solid fa-circle-check me-1"></i>100% Genuine Guaranteed</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     SHOP MAIN CONTENT (FILTER + PRODUCTS)
+     ============================================ -->
+<section class="section-pad">
+  <div class="container">
+    <div class="row g-4">
+
+      <!-- FILTER SIDEBAR -->
+      <div class="col-lg-3">
+        <div class="p-4 rounded-3 border bg-elevated" style="border-color: var(--border) !important;">
+          <h5 class="fw-bold mb-3 brand-font"><i class="fa-solid fa-filter text-red me-2"></i>Filter Parts</h5>
+          
+          <!-- Search Box -->
+          <div class="mb-4">
+            <label class="form-label  small fw-semibold">Search Product / Part #</label>
+            <input type="text" id="searchInput" class="form-control" placeholder="Search by name or part #..." style="background-color: var(--bg-elevated-2); color: var(--text); border: 1px solid var(--border);">
+          </div>
+
+          <!-- Vehicle Finder Filter -->
+          <div class="mb-4">
+            <label class="form-label small fw-semibold">Car Make</label>
+            <select id="makeSelect" class="form-select" style="background-color: var(--bg-elevated-2); color: var(--text); border: 1px solid var(--border);">
+              <option value="All" selected>All Makes</option>
+            </select>
+          </div>
+
+          <div class="mb-4">
+            <label class="form-label small fw-semibold">Car Model</label>
+            <select id="modelSelect" class="form-select" style="background-color: var(--bg-elevated-2); color: var(--text); border: 1px solid var(--border);">
+              <option value="All" selected>All Models</option>
+            </select>
+          </div>
+
+          <!-- Category Filter -->
+          <div class="mb-4">
+            <label class="form-label small fw-semibold">Categories</label>
+            <div class="d-flex flex-column gap-2" id="categoryFilterList">
+              <div class="form-check">
+                <input class="form-check-input cat-check" type="checkbox" value="All" id="catAll" checked>
+                <label class="form-check-label" for="catAll">All Categories</label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Reset Button -->
+          <button class="btn btn-jn-outline w-100 py-2" id="resetFiltersBtn"><i class="fa-solid fa-arrows-rotate me-2"></i>Reset Filters</button>
+        </div>
+      </div>
+
+      <!-- PRODUCTS GRID -->
+      <div class="col-lg-9">
+
+        <!-- Top Bar: Sorting & Item Count -->
+        <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
+          <div class="small">Showing <strong class="text-body" id="showingCount">0</strong> products</div>
+          <div class="d-flex align-items-center gap-2">
+            <label class=" small mb-0 me-1">Sort by:</label>
+            <select id="sortSelect" class="form-select form-select-sm" style="width: auto; background-color: var(--bg-elevated-2); color: var(--text); border: 1px solid var(--border);">
+              <option value="featured" selected>Featured</option>
+              <option value="lowToHigh">Price: Low to High</option>
+              <option value="highToLow">Price: High to Low</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Products Container -->
+        <div class="row g-3 g-md-4" id="shopProductsGrid">
+          <!-- Dynamically Populated from StoreManager / Firebase -->
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     TRUST BAR
+     ============================================ -->
+<section class="trust-bar">
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-md-3 col-6"><div class="trust-item"><i class="fa-solid fa-shield-halved"></i><div><strong>High Quality Parts</strong><span>Only trusted, genuine brands</span></div></div></div>
+      <div class="col-md-3 col-6"><div class="trust-item"><i class="fa-solid fa-truck-fast"></i><div><strong>Fast Shipping</strong><span>Quick delivery nationwide</span></div></div></div>
+      <div class="col-md-3 col-6"><div class="trust-item"><i class="fa-solid fa-lock"></i><div><strong>Secure Payments</strong><span>100% protected transactions</span></div></div></div>
+      <div class="col-md-3 col-6"><div class="trust-item"><i class="fa-solid fa-headset"></i><div><strong>Customer Support</strong><span>Always here to help</span></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     FOOTER
+     ============================================ -->
+<footer class="site-footer" id="contact">
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-lg-4">
+        <a href="index.html" class="logo d-flex align-items-center gap-2 mb-3">
+          <img src="./images/JN.png" alt="JN Autos Logo" style="height: 38px; width: auto; object-fit: contain;">
+          <span style="display:flex;flex-direction:column;line-height:1;">
+            <span class="brand-font fw-bold fs-4">JN <span class="text-red">AUTO</span></span>
+            <small style="font-size: .6rem; letter-spacing: .18em; color: var(-- ); font-weight: 500;">STORE</small>
+          </span>
+        </a>
+        <p>Genuine auto parts and accessories for every make and model, delivered across Pakistan.</p>
+        <div class="mt-3">
+         <a href="https://www.facebook.com/jnautos.store/?_rdc=1&_rdr#"  target="_blank" class="social-icon"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="https://www.instagram.com/jnautos.store/" target="_blank" class="social-icon"><i class="fa-brands fa-instagram"></i></a>
+          <a  href="https://wa.me/923708521407" target="_blank" class="social-icon"><i class="fa-brands fa-whatsapp"></i></a>
+          <a  href="https://www.tiktok.com/@jnautos2" target="_blank" class="social-icon"><i class="fa-brands fa-tiktok"></i></a>
+          <a  href="https://www.youtube.com/@JNAUTOSSTORE" target="_blank" class="social-icon"><i class="fa-brands fa-youtube"></i></a>
+        </div>
+      </div>
+      <div class="col-lg-2 col-6">
+        <h6>Quick Links</h6>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="shop.html">Shop Catalog</a></li>
+          <li><a href="index.html#categories">Categories</a></li>
+          <li><a href="about-us.html">About Us</a></li>
+          <li><a href="admin-portal.html">Staff Portal</a></li>
+        </ul>
+      </div>
+      <div class="col-lg-2 col-6">
+        <h6>Categories</h6>
+        <ul>
+          <li><a href="shop.html">Bearings</a></li>
+          <li><a href="shop.html">Lubricants</a></li>
+          <li><a href="shop.html">Engine Parts</a></li>
+          <li><a href="shop.html">Brake System</a></li>
+        </ul>
+      </div>
+      <div class="col-lg-4">
+        <h6>Contact</h6>
+        <ul>
+ <li><i class="fa-solid fa-location-dot me-2 text-red"></i> Karachi, Pakistan</li>
+          <li><i class="fa-solid fa-phone me-2 text-red"></i>+92 370 8521407</li>
+          <li><i class="fa-solid fa-phone me-2 text-red"></i>+92 323 2564165</li>
+
+          <li><i class="fa-solid fa-envelope me-2 text-red"></i>info@jnautos.store</li>
+        </ul>
+      </div>
+<!-- PRODUCT DETAILS & PHOTO GALLERY MODAL -->
+<div class="modal fade" id="productModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content" style="background:var(--bg-elevated);border:1px solid var(--border);color:var(--text);">
+      <div class="modal-header border-bottom" style="border-color:var(--border) !important;">
+        <h5 class="modal-title brand-font fw-bold" id="modalProductName">Product Details</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body p-4">
+        <div class="row g-4">
+          <div class="col-md-6">
+            <!-- Main Photo Display -->
+            <div class="mb-3 position-relative rounded overflow-hidden border" style="border-color:var(--border) !important;min-height:300px;max-height:420px;background:var(--bg-elevated-2);display:flex;align-items:center;justify-content:center;">
+              <img id="modalMainImg" src="" style="width:100%;max-height:400px;object-fit:contain;padding:8px;">
+              <span class="badge bg-danger position-absolute top-0 start-0 m-2" id="modalPhotoCountBadge">Photo 1 of 1</span>
+            </div>
+            <!-- Thumbnails Strip (Up to 12 Photos) -->
+            <div class="d-flex gap-2 overflow-auto py-1" id="modalThumbsContainer" style="max-width:100%;"></div>
+          </div>
+          <div class="col-md-6">
+            <span class="badge bg-secondary mb-2" id="modalCategory">Category</span>
+            <h4 class="fw-bold brand-font mb-2 text-light" id="modalTitle">Product Title</h4>
+            <h3 class="text-red fw-bold mb-3" id="modalPrice">Rs. 0</h3>
+            <ul class="list-unstyled   small mb-4">
+              <li class="mb-2"><i class="fa-solid fa-car me-2 text-red"></i><strong>Make / Model:</strong> <span id="modalMakeModel" class="text-light"></span></li>
+              <li class="mb-2"><i class="fa-solid fa-calendar me-2 text-red"></i><strong>Model Years:</strong> <span id="modalYear" class="text-light"></span></li>
+              <li class="mb-2"><i class="fa-solid fa-barcode me-2 text-red"></i><strong>OEM Part #:</strong> <span id="modalPartNumber" class="text-light"></span></li>
+              <li class="mb-2"><i class="fa-solid fa-circle-check me-2 text-red"></i><strong>Fitment:</strong> <span id="modalFitment" class="text-light"></span></li>
+              <li class="mb-2"><i class="fa-solid fa-boxes-stacked me-2 text-red"></i><strong>Stock:</strong> <span id="modalStock" class="text-light">In Stock</span></li>
+            </ul>
+            <p class="  small mb-4" id="modalDescription"></p>
+            <button class="btn-jn-red w-100 py-3 add-to-cart" id="modalAddToCartBtn"><i class="fa-solid fa-cart-plus me-2"></i>Add to Cart</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer class="site-footer">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script type="module" src="shop.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

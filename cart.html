@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Review your JN Autos shopping cart and place your order.">
+  <title>Your Cart | JN Autos</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container d-flex align-items-center justify-content-between py-3">
+      <a href="index.html" class="logo d-flex align-items-center gap-2">
+        <img src="./images/JN.png" alt="JN Autos Logo" style="height:38px;width:auto;object-fit:contain;">
+        <span style="display:flex;flex-direction:column;line-height:1;">
+          <span class="brand-font fw-bold fs-4">JN <span class="text-red">AUTO</span></span>
+          <small style="font-size:.6rem;letter-spacing:.18em;color:var(-- );font-weight:500;">STORE</small>
+        </span>
+      </a>
+      <nav class="nav-links d-none d-lg-flex" aria-label="Main navigation">
+        <a href="index.html">Home</a>
+        <a href="shop.html">Shop</a>
+        <a href="about-us.html">About Us</a>
+        <a href="staff-auth.html">Staff Portal</a>
+      </nav>
+      <div class="d-flex align-items-center gap-2">
+        <a href="cart.html" class="icon-btn active" aria-label="Shopping cart">
+          <i class="fa-solid fa-cart-shopping"></i>
+          <span class="cart-badge" id="cartCount">0</span>
+        </a>
+        <button class="icon-btn" id="themeToggle" aria-label="Toggle dark and light mode">
+          <i class="fa-solid fa-sun" id="themeIcon"></i>
+        </button>
+        <button class="icon-btn d-lg-none" id="mobileMenuBtn" aria-label="Menu">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </div>
+    </div>
+    <nav class="nav-links d-lg-none flex-column px-3 pb-3" id="mobileMenu" style="display:none;" aria-label="Mobile navigation">
+      <a href="index.html" class="py-2">Home</a>
+      <a href="shop.html" class="py-2">Shop</a>
+      <a href="about-us.html" class="py-2">About Us</a>
+      <a href="staff-auth.html" class="py-2">Staff Portal</a>
+    </nav>
+  </header>
+
+  <main class="container py-5">
+    <div class="d-flex align-items-end justify-content-between flex-wrap gap-2 mb-4">
+      <div>
+        <span class="text-red fw-bold small text-uppercase">JN Autos</span>
+        <h1 class="display-5 fw-bold mb-0">Your Cart</h1>
+      </div>
+      <p class="  mb-1"><span id="cartPageCount">0</span> item(s)</p>
+    </div>
+
+    <div id="cartEmpty" class="cart-empty text-center py-5">
+      <i class="fa-solid fa-cart-shopping text-red fs-1 mb-3" aria-hidden="true"></i>
+      <h2 class="h3 fw-bold">Your cart is empty</h2>
+      <p class="  mb-4">Browse the catalog and add parts you need.</p>
+      <a href="shop.html" class="btn-jn-red"><i class="fa-solid fa-store me-2"></i>Browse the shop</a>
+    </div>
+
+    <div class="row g-4">
+      <section class="col-lg-8" aria-label="Cart items">
+        <div id="cartItems" class="d-grid gap-3"></div>
+      </section>
+      <aside class="col-lg-4">
+        <div id="cartSummary" class="cart-summary d-none">
+          <h2 class="h4 fw-bold mb-4">Order Summary</h2>
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <span class=" ">Subtotal</span>
+            <strong id="cartSubtotal">Rs. 0</strong>
+          </div>
+          <p class="  small">Delivery and final order details will be confirmed by our team.</p>
+          <a id="cartCheckout" class="btn-jn-red w-100 text-center mt-2" href="#" target="_blank" rel="noopener noreferrer">
+            <i class="fa-brands fa-whatsapp me-2"></i>Place Order on WhatsApp
+          </a>
+          <a href="shop.html" class="btn btn-jn-outline w-100 mt-2">Continue shopping</a>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="row g-4 align-items-center">
+        <div class="col-md-6">
+          <a href="index.html" class="logo d-inline-flex align-items-center gap-2">
+            <img src="./images/JN.png" alt="JN Autos Logo" style="height:34px;width:auto;object-fit:contain;">
+            <span class="brand-font fw-bold fs-5">JN <span class="text-red">AUTO</span></span>
+          </a>
+        </div>
+        <div class="col-md-6 text-md-end">
+          <a href="shop.html" class="me-3">Shop</a>
+          <a href="about-us.html">About Us</a>
+        </div>
+      </div>
+      <div class="footer-bottom">&copy; 2026 JN Autos. All rights reserved.</div>
+    </div>
+  </footer>
+  <script src="app.js"></script>
+  <script type="module" src="cart.js"></script>
+</body>
+</html>

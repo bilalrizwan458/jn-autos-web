@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JN Autos | Premium Auto Parts & Accessories</title>
+
+<!-- Bootstrap 5 (grid + basic components) -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<!-- Font Awesome (icons) -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<!-- CSS CUSTOM FILE -->
+ <link rel="stylesheet" href="style.css">
+ 
+</head>
+<body>
+
+<!-- ============================================
+     NAVBAR
+     ============================================ -->
+<header class="site-header">
+  <div class="container d-flex align-items-center justify-content-between py-3">
+
+    <a href="index.html" class="logo d-flex align-items-center gap-2">
+      <img src="./images/JN.png" alt="JN Autos Logo" style="height: 38px; width: auto; object-fit: contain;">
+      <span style="display:flex;flex-direction:column;line-height:1;">
+        <span class="brand-font fw-bold fs-4">JN <span class="text-red">AUTO</span></span>
+        <small style="font-size: .6rem; letter-spacing: .18em; color: var(-- ); font-weight: 500;">STORE</small>
+      </span>
+    </a>
+
+    <nav class="nav-links d-none d-lg-flex">
+      <a href="index.html" class="active">Home</a>
+      <a href="shop.html">Shop</a>
+      <a href="#categories">Categories</a>
+      <a href="about-us.html">About Us</a>
+      <a href="#contact">Contact</a>
+      <a href="admin-portal.html">Staff Portal</a>
+
+    </nav>
+
+    <div class="d-flex align-items-center gap-2">
+      <button class="icon-btn" aria-label="Search"><i class="fa-solid fa-magnifying-glass"></i></button>
+
+      <a href="cart.html" class="icon-btn" aria-label="Shopping cart">
+        <i class="fa-solid fa-cart-shopping"></i>
+        <span class="cart-badge" id="cartCount">0</span>
+      </a>
+
+      <!-- LIGHT / DARK MODE TOGGLE -->
+      <button class="icon-btn" id="themeToggle" aria-label="Toggle dark and light mode">
+        <i class="fa-solid fa-sun" id="themeIcon"></i>
+      </button>
+
+      <button class="icon-btn d-lg-none" id="mobileMenuBtn" aria-label="Menu"><i class="fa-solid fa-bars"></i></button>
+    </div>
+  </div>
+
+  <!-- Mobile nav (hidden by default, JS toggles the 'open' class) -->
+  <nav class="nav-links d-lg-none d-flex flex-column px-3 pb-3" id="mobileMenu" style="display:none;">
+    <a href="index.html" class="active py-2">Home</a>
+    <a href="shop.html" class="py-2">Shop</a>
+    <a href="#categories" class="py-2">Categories</a>
+    <a href="about-us.html" class="py-2">About Us</a>
+    <a href="admin-portal.html" class="py-2">Staff Portal</a>
+    <a href="#contact" class="py-2">Contact</a>
+  </nav>
+</header>
+
+<!-- ============================================
+     HERO SLIDER
+     id="heroBg" is the photo layer — JS swaps its background image.
+     The three <div class="streak"> / glow-ring pieces are pure CSS,
+     they just fake the neon showroom lighting.
+     ============================================ -->
+<section class="hero-slider">
+  <div class="slide-bg" id="heroBg" style="background-image:url('./images/hero_bg.jpg')"></div>
+  <div class="streak s1"></div>
+  <div class="streak s2"></div>
+  <div class="glow-ring"></div>
+
+  <div class="container">
+    <div class="hero-content">
+      <h1 id="heroHeading">Premium Parts.<br><span class="text-red" id="heroHeadingRed">Peak Performance.</span></h1>
+      <p class="lead-text" id="heroText">High-quality auto parts &amp; accessories for every machine and every journey.</p>
+
+      <div class="d-flex gap-3 mt-4">
+        <a href="shop.html" class="btn-jn-red">Shop Now</a>
+        <a href="#categories" class="btn-jn-outline">Explore Categories</a>
+      </div>
+
+      <div class="hero-slider-nav">
+        <span class="count current" id="slideCurrent">01</span>
+        <div class="track"><div class="fill" id="slideFill"></div></div>
+        <span class="count total" id="slideTotal">03</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     FIND THE RIGHT PART — floats up over the hero's bottom edge
+     ============================================ -->
+<section class="part-finder">
+  <div class="container">
+    <div class="part-finder-card">
+      <h2>Find The <span class="text-red">Right</span> Part For Your Car</h2>
+      <div class="row g-3 align-items-end">
+        <div class="col-md-3">
+          <select><option>Select Make</option><option>Toyota</option><option>Honda</option><option>Suzuki</option></select>
+        </div>
+        <div class="col-md-3">
+          <select><option>Select Model</option></select>
+        </div>
+        <div class="col-md-3">
+          <select><option>Select Year</option></select>
+        </div>
+        <div class="col-md-3">
+          <button class="btn-jn-red w-100"><i class="fa-solid fa-magnifying-glass me-2"></i>Search Part</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     SUPPORTED BRANDS
+     ============================================ -->
+<section class="brands-strip">
+  <div class="container">
+    <div class="label">SUPPORTED BRANDS</div>
+    <div class="d-flex flex-wrap justify-content-center gap-5">
+      <span class="brand-chip">Toyota</span>
+      <span class="brand-chip">Honda</span>
+      <span class="brand-chip">Suzuki</span>
+      <span class="brand-chip">Kia</span>
+      <span class="brand-chip">Hyundai</span>
+      <span class="brand-chip">Nissan</span>
+      <span class="brand-chip">Mazda</span>
+      <span class="brand-chip">Mitsubishi</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     SHOP BY CATEGORY
+     ============================================ -->
+<section class="section-pad" id="categories">
+  <div class="container">
+    <div class="section-heading">
+      <h2>Shop by <span class="text-red">Category</span></h2>
+      <a href="shop.html" class="view-all">View All <i class="fa-solid fa-chevron-right"></i></a>
+    </div>
+    <div class="row g-3 g-md-4">
+      <div class="col-6 col-md-4 col-lg-2"><a href="shop.html" class="text-decoration-none"><div class="category-card"><div class="icon-circle"><i class="fa-solid fa-compact-disc"></i></div><span>Bearings</span></div></a></div>
+      <div class="col-6 col-md-4 col-lg-2"><a href="shop.html" class="text-decoration-none"><div class="category-card"><div class="icon-circle"><i class="fa-solid fa-oil-can"></i></div><span>Lubricants</span></div></a></div>
+      <div class="col-6 col-md-4 col-lg-2"><a href="shop.html" class="text-decoration-none"><div class="category-card"><div class="icon-circle"><i class="fa-solid fa-gears"></i></div><span>Engine Parts</span></div></a></div>
+      <div class="col-6 col-md-4 col-lg-2"><a href="shop.html" class="text-decoration-none"><div class="category-card"><div class="icon-circle"><i class="fa-solid fa-car-side"></i></div><span>Suspension</span></div></a></div>
+      <div class="col-6 col-md-4 col-lg-2"><a href="shop.html" class="text-decoration-none"><div class="category-card"><div class="icon-circle"><i class="fa-solid fa-circle-dot"></i></div><span>Brake System</span></div></a></div>
+      <div class="col-6 col-md-4 col-lg-2"><a href="shop.html" class="text-decoration-none"><div class="category-card"><div class="icon-circle"><i class="fa-solid fa-toolbox"></i></div><span>Accessories</span></div></a></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     TRENDING PRODUCTS
+     ============================================ -->
+<section class="section-pad pt-0">
+  <div class="container">
+    <div class="section-heading">
+      <h2>Trending <span class="text-red">Products</span></h2>
+      <a href="shop.html" class="view-all">View All <i class="fa-solid fa-chevron-right"></i></a>
+    </div>
+    <div class="row g-3 g-md-4">
+
+      <div class="col-6 col-md-4 col-lg-3">
+        <div class="product-card">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT0kcv4OlQUMpDaeUd5omZ2NaNw9MFqn5gB1lM_wZa55Q&s=10" alt="Osaka Battery">
+          <div class="body">
+            <div class="name">Osaka Battery – 15 Plate</div>
+            <div class="price">Rs. 10,500</div>
+            <button class="btn-jn-red add-to-cart" data-product-id="featured-osaka-battery"><i class="fa-solid fa-cart-plus me-1"></i>Add to Cart</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-6 col-md-4 col-lg-3">
+        <div class="product-card">
+          <img src="./images/brakes.jpg" alt="Disc Rotor">
+          <div class="body">
+            <div class="name">Front Brake Disc Rotor</div>
+            <div class="price">Rs. 6,500</div>
+            <button class="btn-jn-red add-to-cart" data-product-id="featured-front-brake-disc-rotor"><i class="fa-solid fa-cart-plus me-1"></i>Add to Cart</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-6 col-md-4 col-lg-3">
+        <div class="product-card">
+          <img src="./images/engine oil pic.png" alt="Engine Oil">
+          <div class="body">
+            <div class="name">Shell Helix Oil 5W-30</div>
+            <div class="price">Rs. 3,800</div>
+            <button class="btn-jn-red add-to-cart" data-product-id="featured-shell-helix-oil"><i class="fa-solid fa-cart-plus me-1"></i>Add to Cart</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-6 col-md-4 col-lg-3">
+        <div class="product-card">
+          <img src="./images/turbo.jpg" alt="Turbocharger Performance Kit">
+          <div class="body">
+            <div class="name">High Performance Turbocharger Kit</div>
+            <div class="price">Rs. 45,000</div>
+            <button class="btn-jn-red add-to-cart" data-product-id="featured-turbocharger-kit"><i class="fa-solid fa-cart-plus me-1"></i>Add to Cart</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     TRUST BAR
+     ============================================ -->
+<section class="trust-bar">
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-md-3 col-6"><div class="trust-item"><i class="fa-solid fa-shield-halved"></i><div><strong>High Quality Parts</strong><span>Only trusted, genuine brands</span></div></div></div>
+      <div class="col-md-3 col-6"><div class="trust-item"><i class="fa-solid fa-truck-fast"></i><div><strong>Fast Shipping</strong><span>Quick delivery nationwide</span></div></div></div>
+      <div class="col-md-3 col-6"><div class="trust-item"><i class="fa-solid fa-lock"></i><div><strong>Secure Payments</strong><span>100% protected transactions</span></div></div></div>
+      <div class="col-md-3 col-6"><div class="trust-item"><i class="fa-solid fa-headset"></i><div><strong>Customer Support</strong><span>Always here to help</span></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     FOOTER
+     ============================================ -->
+<footer class="site-footer" id="contact">
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-lg-4">
+        
+    <a href="index.html" class="logo d-flex align-items-center gap-2">
+      <img src="./images/JN.png" alt="JN Autos Logo" style="height: 38px; width: auto; object-fit: contain;">
+      <span style="display:flex;flex-direction:column;line-height:1;">
+        <span class="brand-font fw-bold fs-4">JN <span class="text-red">AUTO</span></span>
+        <small style="font-size: .6rem; letter-spacing: .18em; color: var(-- ); font-weight: 500;">STORE</small>
+      </span>
+    </a>
+
+        <p>Genuine auto parts and accessories for every make and model, delivered across Pakistan.</p>
+        <div class="mt-3">
+          <a href="https://www.facebook.com/jnautos.store/?_rdc=1&_rdr#"  target="_blank" class="social-icon"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="https://www.instagram.com/jnautos.store/" target="_blank" class="social-icon"><i class="fa-brands fa-instagram"></i></a>
+          <a  href="https://wa.me/923708521407" target="_blank" class="social-icon"><i class="fa-brands fa-whatsapp"></i></a>
+          <a  href="https://www.tiktok.com/@jnautos2" target="_blank" class="social-icon"><i class="fa-brands fa-tiktok"></i></a>
+          <a  href="https://www.youtube.com/@JNAUTOSSTORE" target="_blank" class="social-icon"><i class="fa-brands fa-youtube"></i></a>
+
+
+
+        </div>
+      </div>
+      <div class="col-lg-2 col-6" >
+        <h6>Quick Links</h6>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="shop.html">Shop</a></li>
+          <li><a href="#categories">Categories</a></li>
+          <li><a href="about-us.html">About Us</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div class="col-lg-2 col-6">
+        <h6>Categories</h6>
+        <ul>
+          <li><a href="#">Engine Parts</a></li>
+          <li><a href="#">Brake System</a></li>
+          <li><a href="#">Suspension</a></li>
+          <li><a href="#">Electricals</a></li>
+        </ul>
+      </div>
+      <div class="col-lg-4">
+        <h6>Contact Us</h6>
+        <ul>
+          <li><i class="fa-solid fa-location-dot me-2 text-red"></i> Karachi, Pakistan</li>
+          <li><i class="fa-solid fa-phone me-2 text-red"></i>+92 370 8521407</li>
+          <li><i class="fa-solid fa-phone me-2 text-red"></i>+92 323 2564165</li>
+
+          <li><i class="fa-solid fa-envelope me-2 text-red"></i>info@jnautos.store</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">&copy; 2026 JN Autos. All rights reserved.</div>
+  </div>
+</footer>
+<!-- BOOT STRAP JS FILE -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- JS CUSTOM FILE -->
+ <script type="module" src="firebase-config.js"></script>
+ <script src="app.js"></script>
+ <script type="module" src="cart.js"></script>
+</body>
+</html>

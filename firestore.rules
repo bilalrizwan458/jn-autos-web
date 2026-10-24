@@ -1,0 +1,35 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function ownsProfile(userId) {
+      return request.auth != null && request.auth.uid == userId;
+    }
+
+    function hasStaffAccess() {
+      return request.auth != null
+        && request.auth.token.email_verified == true
+        && request.auth.token.email != null
+        && exists(/databases/$(database)/documents/staffAccess/$(request.auth.token.email.lower()))
+        && get(/databases/$(database)/documents/staffAccess/$(request.auth.token.email.lower())).data.active == true;
+    }
+
+    match /staffAccess/{email} {
+      allow read: if request.auth != null && request.auth.token.email.lower() == email;
+      allow write: if false;
+    }
+
+    match /staffProfiles/{userId} {
+      allow read: if ownsProfile(userId) && hasStaffAccess();
+      allow create: if ownsProfile(userId) && hasStaffAccess()
+        && request.resource.data.keys().hasOnly(['email', 'fullName', 'createdAt'])
+        && request.resource.data.keys().hasAll(['email', 'fullName', 'createdAt'])
+        && request.resource.data.email == request.auth.token.email
+        && request.resource.data.fullName is string
+        && request.resource.data.createdAt is timestamp;
+      allow update: if ownsProfile(userId) && hasStaffAccess()
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['fullName'])
+        && request.resource.data.fullName is string;
+      allow delete: if false;
+    }
+  }
+}
